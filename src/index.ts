@@ -46,6 +46,8 @@ export default class {
 	}
 
 	private start(initialData?: any) {
+		this.isRunning = true
+
 		this.either(
 			() => {
 				this.worker = new (require('worker_threads'.trim())
