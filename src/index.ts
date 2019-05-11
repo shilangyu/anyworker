@@ -1,3 +1,5 @@
+import isNode from 'detect-node'
+
 export enum ENV {
 	node,
 	web
@@ -6,7 +8,7 @@ export enum ENV {
 type MessageCallback = (data: any) => void
 type ErrorCallback = (error: Error | ErrorEvent) => void
 
-export class BaseWorker {
+class BaseWorker {
 	public worker: Worker | import('worker_threads').Worker | null = null
 	public isRunning = false
 	private _workerFuncStr: string = ''
@@ -120,3 +122,8 @@ export class BaseWorker {
 		}
 	}
 }
+
+export default new BaseWorker(
+	isNode ? require('worker_threads'.trim()).Worker : Worker,
+	ENV[isNode ? 'node' : 'web']
+)
