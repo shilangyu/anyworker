@@ -5,9 +5,18 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "jest --no-cache",
-		"build": "tsc"
+		"build": "tsc",
+		"prepare": "npm run build",
+		"prepublishOnly": "npm test",
+		"postversion": "git push && git push --tags"
 	},
-	"keywords": [],
+	"keywords": [
+		"cross-platform",
+		"worker",
+		"webworker",
+		"nodeworker",
+		"worker-threads"
+	],
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
