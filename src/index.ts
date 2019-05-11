@@ -1,6 +1,6 @@
 import isNode from 'detect-node'
 
-export enum ENV {
+enum ENV {
 	node,
 	web
 }
@@ -8,58 +8,53 @@ export enum ENV {
 type MessageCallback = (data: any) => void
 type ErrorCallback = (error: Error | ErrorEvent) => void
 
-class BaseWorker {
+export default class {
 	public worker: Worker | import('worker_threads').Worker | null = null
-	public isRunning = false
+	public env: ENV = ENV[isNode ? 'node' : 'web']
+	public isRunning = true
 	private _workerFuncStr: string = ''
 	private _messageCallback: MessageCallback | null = null
 	private _errorCallback: ErrorCallback | null = null
 	private _initialData: any
 
-	constructor(
-		private SquashedWorker: typeof import('worker_threads').Worker | typeof Worker,
-		public env: ENV
-	) {}
-
-	set workerFunc(value: Function) {
-		const rawFuncStr = value.toString()
-		let cookedFuncStr = ''
+	constructor(env: Function, initialData?: any) {
+		this._initialData = initialData
 
 		this.either(
 			() => {
-				cookedFuncStr = `() => {
+				this._workerFuncStr = `() => {
 				const { parentPort } = require('worker_threads');
-				${rawFuncStr
+				${env
+					.toString()
 					.replace(/^(\(\) ?=> ?\{|function ?\(\) ?\{)/, '')
 					.replace(/postMessage/g, 'parentPort.postMessage')
 					.replace(/onmessage\(/g, "parentPort.on('message',")}
 				`
 			},
 			() => {
-				cookedFuncStr = rawFuncStr.replace(
-					/onmessage\((\((\w+)\) ?=>|function\((\w+)\))/g,
-					'onmessage = (function({data: $2$3})'
-				)
+				this._workerFuncStr = env
+					.toString()
+					.replace(
+						/onmessage\((\((\w+)\) ?=>|function\((\w+)\))/g,
+						'onmessage = (function({data: $2$3})'
+					)
 			}
 		)
+		this._workerFuncStr = `(${this._workerFuncStr})()`
 
-		this._workerFuncStr = `(${cookedFuncStr})()`
+		this.start(initialData)
 	}
 
-	start(initialData?: any) {
-		this._initialData = initialData
-		this.isRunning = true
-
+	private start(initialData?: any) {
 		this.either(
-			worker => {
-				this.worker = worker
-				this.worker = new this.SquashedWorker(this._workerFuncStr, {
+			() => {
+				this.worker = new (require('worker_threads'.trim())
+					.Worker as typeof import('worker_threads').Worker)(this._workerFuncStr, {
 					eval: true
 				})
 			},
-			worker => {
-				this.worker = worker
-				this.worker = new this.SquashedWorker(URL.createObjectURL(new Blob([this._workerFuncStr])))
+			() => {
+				this.worker = new Worker(URL.createObjectURL(new Blob([this._workerFuncStr])))
 			}
 		)
 
@@ -122,8 +117,3 @@ class BaseWorker {
 		}
 	}
 }
-
-export default new BaseWorker(
-	isNode ? require('worker_threads'.trim()).Worker : Worker,
-	ENV[isNode ? 'node' : 'web']
-)
