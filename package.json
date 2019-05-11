@@ -1,7 +1,7 @@
 {
-	"name": "github",
+	"name": "anyworker",
 	"version": "1.0.0",
-	"description": "",
+	"description": "Stop worrying about your Worker's environment",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
@@ -18,8 +18,8 @@
 		"nodeworker",
 		"worker-threads"
 	],
-	"author": "",
-	"license": "ISC",
+	"author": "Marcin Wojnarowski @shilangyu",
+	"license": "MIT",
 	"dependencies": {
 		"detect-node": "^2.0.4"
 	},
