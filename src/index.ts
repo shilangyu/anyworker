@@ -95,8 +95,8 @@ export default class {
 	restart() {
 		this.terminate()
 		this.start(this._initialData)
-		this.onmessage(this._messageCallback!)
-		this.onerror(this._errorCallback!)
+		this._messageCallback && this.onmessage(this._messageCallback)
+		this._errorCallback && this.onerror(this._errorCallback)
 	}
 
 	postMessage(data: any) {
