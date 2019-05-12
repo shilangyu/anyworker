@@ -56,7 +56,9 @@ export default class {
 				})
 			},
 			() => {
-				this.worker = new Worker(URL.createObjectURL(new Blob([this._workerFuncStr])))
+				this.worker = new (window as any).Worker(
+					URL.createObjectURL(new Blob([this._workerFuncStr]))
+				)
 			}
 		)
 
