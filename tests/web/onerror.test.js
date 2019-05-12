@@ -1,5 +1,3 @@
-import Worker from '../src'
-
 describe('onerror method', () => {
 	it('should fail and catch the error', done => {
 		const worker = new Worker(() => {

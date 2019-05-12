@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>anyworker web tests</title>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.2.1/jasmine.min.css"
+		/>
+	</head>
+	<body>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.2.1/jasmine.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.2.1/jasmine-html.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.2.1/boot.min.js"></script>
+		<script>
+			// mock require.js
+			const exports = {}
+			const require = path => {
+				switch (path) {
+					case 'detect-node':
+						return (
+							Object.prototype.toString.call(typeof process !== 'undefined' ? process : 0) ===
+							'[object process]'
+						)
+						break
+
+					default:
+						break
+				}
+			}
+		</script>
+		<script src="../../dist/index.js"></script>
+		<script>
+			const Worker = exports.default
+		</script>
+		<script src="./onerror.test.js"></script>
+		<script src="./onmessage.test.js"></script>
+	</body>
+</html>
