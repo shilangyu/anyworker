@@ -15,11 +15,8 @@ export default class {
 	private _workerFuncStr: string = ''
 	private _messageCallback?: MessageCallback
 	private _errorCallback?: ErrorCallback
-	private _initialData: any
 
-	constructor(env: Function, initialData?: any) {
-		this._initialData = initialData
-
+	constructor(env: Function) {
 		this.either(
 			() => {
 				this._workerFuncStr = `() => {
@@ -42,10 +39,10 @@ export default class {
 		)
 		this._workerFuncStr = `(${this._workerFuncStr})()`
 
-		this.start(initialData)
+		this.start()
 	}
 
-	private start(initialData?: any) {
+	private start() {
 		this.isRunning = true
 
 		this.either(
@@ -61,8 +58,6 @@ export default class {
 				)
 			}
 		)
-
-		if (initialData !== undefined) this.worker!.postMessage({ __initialData: initialData })
 	}
 
 	onmessage(callback: MessageCallback) {
@@ -98,7 +93,7 @@ export default class {
 
 	restart() {
 		this.terminate()
-		this.start(this._initialData)
+		this.start()
 		this._messageCallback && this.onmessage(this._messageCallback)
 		this._errorCallback && this.onerror(this._errorCallback)
 	}
