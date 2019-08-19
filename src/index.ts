@@ -5,16 +5,16 @@ enum ENV {
 	web
 }
 
-type MessageCallback = (data: any) => void
-type ErrorCallback = (error: Error | ErrorEvent) => void
+export type MessageCallback = (data: any) => void
+export type ErrorCallback = (error: Error | ErrorEvent) => void
 
 export default class {
-	public worker: Worker | import('worker_threads').Worker | null = null
+	public worker?: Worker | import('worker_threads').Worker
 	public env: ENV = ENV[isNode ? 'node' : 'web']
 	public isRunning = true
 	private _workerFuncStr: string = ''
-	private _messageCallback: MessageCallback | null = null
-	private _errorCallback: ErrorCallback | null = null
+	private _messageCallback?: MessageCallback
+	private _errorCallback?: ErrorCallback
 	private _initialData: any
 
 	constructor(env: Function, initialData?: any) {
@@ -27,7 +27,7 @@ export default class {
 				${env
 					.toString()
 					.replace(/^(\(\) ?=> ?\{|function ?\(\) ?\{)/, '')
-					.replace(/postMessage/g, 'parentPort.postMessage')
+					.replace(/postMessage\(/g, 'parentPort.postMessage(')
 					.replace(/onmessage\(/g, "parentPort.on('message',")}
 				`
 			},
