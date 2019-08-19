@@ -14,4 +14,23 @@ Implements:
 Additionally gives such APIs as:
 
 - restart
-- set workerFunc
+
+## example
+
+```ts
+import Worker from 'anyworker'
+
+const worker = new Worker(() => {
+	postMessage({ sending: ['a', 'message', 'from', 'worker'] })
+
+	onmessage(data => console.log('hello from a worker! Master sent me:', data))
+})
+
+worker.postMessage({ sending: ['a', 'message', 'from', 'master'] })
+worker.onmessage(data => console.log('hello from master! Worker sent me:', data))
+
+// later
+worker.terminate()
+// or
+worker.restart()
+```
