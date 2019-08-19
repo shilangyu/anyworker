@@ -1,5 +1,9 @@
 # anyworker
 
+```
+npm i anyworker
+```
+
 Creates a bridge between web's WebWorker and node's worker_threads.
 
 No more writing duplicate code for node and web targets ✨
