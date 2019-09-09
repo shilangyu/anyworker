@@ -32,7 +32,7 @@ export default class {
 				this._workerFuncStr = env
 					.toString()
 					.replace(
-						/onmessage\((\((\w+)\) ?=>|function\((\w+)\))/g,
+						/onmessage\((\((.*?)\) ?=>|function\((.*?)\))/g,
 						'onmessage = (function({data: $2$3})'
 					)
 			}
