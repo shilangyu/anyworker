@@ -1,5 +1,7 @@
 # anyworker
 
+![](https://github.com/shilangyu/anyworker/workflows/anyworker/badge.svg)
+
 ```
 npm i anyworker
 ```
