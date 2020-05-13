@@ -1,6 +1,6 @@
 # anyworker
 
-[![](https://github.com/shilangyu/anyworker/workflows/anyworker/badge.svg)](https://github.com/shilangyu/anyworker/actions)
+[![](https://github.com/shilangyu/anyworker/workflows/ci/badge.svg)](https://github.com/shilangyu/anyworker/actions)
 
 ```
 npm i anyworker
