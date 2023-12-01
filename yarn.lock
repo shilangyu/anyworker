@@ -488,9 +488,9 @@
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
 "@types/detect-node@^2.0.0":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@types/detect-node/-/detect-node-2.0.1.tgz#d01889b4a7bbff00ab21ab277884c3a29f7453f0"
-  integrity sha512-y7AlL0WTosxlajspWsDr2rxjgTTk+nvBFgr+9DF1WMa8laGfEKWKZBcK0gC1t5SVHz6dm7wcKyW9TGfBvPM6+g==
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@types/detect-node/-/detect-node-2.0.2.tgz#acca2b41de7a5ee88d9fd5081322b85f84b9604f"
+  integrity sha512-2r16DIvQ3dLcRHBPzbdlPsqUWvNaIE7g3fPlGcoA5IF0Nvv7gaONWleB2rhEmggvj/P5VvxseWchR2noncrgGg==
 
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0":
   version "2.0.1"
