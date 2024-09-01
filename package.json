@@ -27,7 +27,7 @@
 		"@types/detect-node": "^2.0.0",
 		"@types/jest": "^27.0.1",
 		"@types/node": "^20.2.5",
-		"husky": "^8.0.1",
+		"husky": "^9.1.5",
 		"jest": "^24.8.0",
 		"ts-jest": "^24.0.2",
 		"typescript": "^5.0.3"
